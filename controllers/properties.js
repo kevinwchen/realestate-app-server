@@ -10,17 +10,7 @@ export const getProperties = async (req, res) => {
 };
 
 export const getProperty = async (req, res) => {
-  let property;
-  try {
-    property = await Property.findById(req.params.id);
-    if (property == null) {
-      return res.status(404).json({ message: "Cannot find property" });
-    }
-  } catch (error) {
-    return res.status(500).json({ message: error.message });
-  }
-
-  res.property = property;
+  res.json(res.property);
 };
 
 export const createProperty = async (req, res) => {
