@@ -33,12 +33,15 @@ export const createProperty = async (req, res) => {
 };
 
 export const updateProperty = async (req, res) => {
-  if (req.body.id != null) {
-    res.property.id = req.body.id;
-  }
-  if (req.body.title != null) {
-    res.property.title = req.body.title;
-  }
+  res.property.title = req.body.title || res.property.title;
+  res.property.bed = req.body.bed || res.property.bed;
+  res.property.bath = req.body.bath || res.property.bath;
+  res.property.address = req.body.address || res.property.address;
+  res.property.zipCode = req.body.zipCode || res.property.zipCode;
+  res.property.state = req.body.state || res.property.state;
+  res.property.country = req.body.country || res.property.country;
+  res.property.imageURLs = req.body.imageURLs || res.property.imageURLs;
+
   try {
     const updatedProperty = await res.property.save();
     res.json(updatedProperty);
@@ -49,8 +52,9 @@ export const updateProperty = async (req, res) => {
 
 export const deleteProperty = async (req, res) => {
   try {
+    const deletionId = res.property.id;
     await res.property.remove();
-    res.json({ message: "Property listing deleted" });
+    res.json({ message: `Property deleted, id:${deletionId}` });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

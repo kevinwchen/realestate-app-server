@@ -7,15 +7,16 @@ import {
   updateProperty,
   deleteProperty,
 } from "../controllers/properties.js";
+import getPropertyById from "../middleware/getPropertyById.js";
 
 router.get("/", getProperties);
 
-router.get("/:id", getProperty);
+router.get("/:id", getPropertyById, getProperty);
 
 router.post("/", createProperty);
 
-router.patch("/:id", updateProperty);
+router.patch("/:id", getPropertyById, updateProperty);
 
-router.delete("/:id", deleteProperty);
+router.delete("/:id", getPropertyById, deleteProperty);
 
 export default router;
